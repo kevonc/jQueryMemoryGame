@@ -62,7 +62,7 @@ function startGame(lettersArray) {
 function cardClick(lettersArray) {
   $(".card").click(function() {
     var currentId = $(this).attr('id');
-    $(this).children().show();
+    $(this).children().fadeIn('fast');
     console.log(this);
     counter += 1;
     // first attempt
@@ -73,17 +73,11 @@ function cardClick(lettersArray) {
     } else { // second attempt
       // same letters revealed
       if ($(this).children().text() === lastCard && currentId !== lastId) {
-        lastIdTag = "#" + lastId;
-        $(this).addClass("hover");
-        $(lastIdTag).addClass("hover");
-        $(this).unbind('click');
-        $(lastIdTag).unbind('click');
-        $(this).css('cursor', 'default');
-        $(lastIdTag).css('cursor', 'default');
+        hovering($(this));
       } else { // failed attempt to match
         lastIdTag = "#" + lastId;
         $(this).children().delay(500).fadeOut();
-        $(lastIdTag).children().delay(500).fadeOut();
+        $(lastIdTag).children().delay(640).fadeOut();
         lastId = '';
         lastCard = '';
       }
@@ -93,8 +87,14 @@ function cardClick(lettersArray) {
 }
 
 //Add hoverclass to cards.
-function hovering() {
-
+function hovering(thisCard) {
+  lastIdTag = "#" + lastId;
+  thisCard.addClass("hover");
+  $(lastIdTag).addClass("hover");
+  thisCard.unbind('click');
+  $(lastIdTag).unbind('click');
+  thisCard.css('cursor', 'default');
+  $(lastIdTag).css('cursor', 'default');
 }
 
 //Start the timer
