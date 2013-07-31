@@ -29,16 +29,23 @@ $(function() {
     startTime();
     updateTime();
     cardClick(shuffledArray);
+    $("#controls").children().unbind("click");
   });
   $("#medium").click(function() {
     var shuffledArray = _.shuffle(lettersMedium);
     startGame(shuffledArray);
+    startTime();
+    updateTime();
     cardClick(shuffledArray);
+    $("#controls").children().unbind("click");
   });
   $("#large").click(function() {
     var shuffledArray = _.shuffle(lettersLarge);
     startGame(shuffledArray);
+    startTime();
+    updateTime();
     cardClick(shuffledArray);
+    $("#controls").children().unbind("click");
   });
 });
 
@@ -108,4 +115,8 @@ function updateTime() {
     time += 1;
     $("#timer").text("Counting: " + time + " sec");
   }, 1000);
+}
+
+function restartGame() {
+  $("#controls").children().bind("click");
 }

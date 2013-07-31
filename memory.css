@@ -1,6 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Londrina+Shadow);
 @import url(http://fonts.googleapis.com/css?family=Mystery+Quest);
 
+body {
+  background-color: #ebe4e2;
+  color: #bf6574;
+}
+
 #content {
   margin: 0 auto;
   width: 360px;
@@ -29,7 +34,7 @@
 }
 
 .card {
-  border: 1px solid #595139;
+  border: 1px solid #d49857;
   float: left;
   font-family: 'Londrina Shadow', cursive;
   font-size: 50px;
@@ -42,7 +47,8 @@
 }
 /* apply with toggle class */
 .hover {
-  background-color: #A6977B;
+  background-color: #bf6574;
+  color: #ebe4e2;
 }
 /* apply when two cards match */
 .found {
