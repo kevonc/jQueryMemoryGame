@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Londrina+Shadow);
-@import url(http://fonts.googleapis.com/css?family=Mystery+Quest);
+@import url(http://fonts.googleapis.com/css?family=Rum+Raisin);
 
 body {
   background-color: #ebe4e2;
@@ -21,7 +21,7 @@ body {
 }
 
 #timer {
-  font-family: 'Mystery Quest', cursive;
+  font-family: 'Rum Raisin', sans-serif;
   font-size: 20px;
 }
 
