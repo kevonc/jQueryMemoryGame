@@ -14,7 +14,7 @@ var lettersSmall  = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E'],
                      'P', 'P', 'Q', 'Q', 'R', 'R', 'S', 'S', 'T', 'T'];
 
 //array of letters. will change based on size of game.
-var letters = [];
+var matchedletters = [];
 
 //last card/letter you clicked on. comes from the letter divs.
 var lastId = '',
@@ -72,7 +72,7 @@ function cardClick(lettersArray) {
       // same letters revealed
       if ($(this).children().text() === lastCard && currentId !== lastId) {
         hovering($(this));
-        letters.push(currentId, lastId);
+        matchedletters.push(currentId, lastId);
         checkWin(lettersArray);
       } else { // failed attempt to match
         lastIdTag = "#" + lastId;
@@ -110,7 +110,7 @@ function updateTime() {
 }
 
 function checkWin(lettersArray) {
-  if (lettersArray.length === letters.length) {
+  if (lettersArray.length === matchedletters.length) {
     clearInterval(timerId);
     $("#game").children().addClass("won");
     $("#footer").append("<button class='btn' id='restart'>Restart Game</button>");
@@ -126,6 +126,6 @@ function restartGame() {
   $("#game").empty();
   $("#restart").remove();
   time = 0;
-  letters = [];
+  matchedletters = [];
   startTime();
 }
