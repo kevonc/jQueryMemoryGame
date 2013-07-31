@@ -14,7 +14,7 @@ var lettersSmall  = ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E'],
                      'P', 'P', 'Q', 'Q', 'R', 'R', 'S', 'S', 'T', 'T'];
 
 //array of letters. will change based on size of game.
-var letters;
+var letters = [];
 
 //last card/letter you clicked on. comes from the letter divs.
 var lastId = '',
@@ -23,34 +23,25 @@ var lastId = '',
 
 //Code In Here gets executed once code is ready. ie hovering, clicking events//
 $(function() {
-  $("#small").click(function() {
-    var shuffledArray = _.shuffle(lettersSmall);
-    startGame(shuffledArray);
-    startTime();
-    updateTime();
-    cardClick(shuffledArray);
-    $("#controls").children().unbind("click");
-    $("#controls").children().css('cursor', 'default');
-  });
-  $("#medium").click(function() {
-    var shuffledArray = _.shuffle(lettersMedium);
-    startGame(shuffledArray);
-    startTime();
-    updateTime();
-    cardClick(shuffledArray);
-    $("#controls").children().unbind("click");
-    $("#controls").children().css('cursor', 'default');
-  });
-  $("#large").click(function() {
-    var shuffledArray = _.shuffle(lettersLarge);
-    startGame(shuffledArray);
-    startTime();
-    updateTime();
-    cardClick(shuffledArray);
-    $("#controls").children().unbind("click");
-    $("#controls").children().css('cursor', 'default');
-  });
+  $("#controls").children().bind("click", clickHandler);
 });
+
+function clickHandler() {
+    if (this.id === "small") {
+      chosenLetters = lettersSmall;
+    } else if (this.id === "medium") {
+      chosenLetters = lettersMedium;
+    } else {
+      chosenLetters = lettersLarge;
+    }
+    var shuffledArray = _.shuffle(chosenLetters);
+    startGame(shuffledArray);
+    startTime();
+    updateTime();
+    cardClick(shuffledArray);
+    $("#controls").children().unbind("click");
+    $("#controls").children().css('cursor', 'default');
+}
 
 // Initializes the game and creates the board
 function startGame(lettersArray) {
@@ -64,7 +55,6 @@ function startGame(lettersArray) {
     $(div).addClass("card");
     $(game).append(div);
     $(letter).hide();
-    console.log(div);
   });
 }
 
@@ -73,17 +63,17 @@ function cardClick(lettersArray) {
   $(".card").click(function() {
     var currentId = $(this).attr('id');
     $(this).children().fadeIn('fast');
-    console.log(this);
     counter += 1;
     // first attempt
     if (counter % 2 !== 0) {
       lastId = currentId;
       lastCard = $(this).children().text();
-      console.log("Counter: " + counter);
     } else { // second attempt
       // same letters revealed
       if ($(this).children().text() === lastCard && currentId !== lastId) {
         hovering($(this));
+        letters.push(currentId, lastId);
+        checkWin(lettersArray);
       } else { // failed attempt to match
         lastIdTag = "#" + lastId;
         $(this).children().delay(500).fadeOut();
@@ -91,7 +81,6 @@ function cardClick(lettersArray) {
         lastId = '';
         lastCard = '';
       }
-      console.log("Counter: " + counter);
     }
   });
 }
@@ -101,8 +90,8 @@ function hovering(thisCard) {
   lastIdTag = "#" + lastId;
   thisCard.addClass("hover");
   $(lastIdTag).addClass("hover");
-  thisCard.unbind('click');
-  $(lastIdTag).unbind('click');
+  thisCard.off('click');
+  $(lastIdTag).off('click');
   thisCard.css('cursor', 'default');
   $(lastIdTag).css('cursor', 'default');
 }
@@ -114,12 +103,28 @@ function startTime() {
 
 //Increment the timer and display the new time
 function updateTime() {
-  setInterval(function() {
+  timerId = setInterval(function() {
     time += 1;
     $("#timer").text("Counting: " + time + " sec");
   }, 1000);
 }
 
+function checkWin(lettersArray) {
+  if (lettersArray.length === letters.length) {
+    clearInterval(timerId);
+    $("#game").children().addClass("won");
+    $("#footer").append("<button class='btn' id='restart'>Restart Game</button>");
+    $("#restart").click(function() {
+      restartGame();
+    });
+  }
+}
+
 function restartGame() {
-  $("#controls").children().bind("click");
+  $("#controls").children().bind("click", clickHandler);
+  $("#controls").children().css("cursor", "pointer");
+  $("#game").empty();
+  $("#restart").remove();
+  time = 0;
+  startTime();
 }
