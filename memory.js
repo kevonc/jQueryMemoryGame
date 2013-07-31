@@ -68,7 +68,8 @@ function cardClick(lettersArray) {
     if (counter % 2 !== 0) {
       lastId = currentId;
       lastCard = $(this).children().text();
-    } else { // second attempt
+    } else {
+    // second attempt
       secondAttemptCheckMatch($(this), lettersArray);
     }
   });
@@ -80,7 +81,8 @@ function secondAttemptCheckMatch(thisCard, lettersArray) {
     hovering(thisCard);
     matchedletters.push(currentId, lastId);
     checkWin(lettersArray);
-  } else { // failed attempt to match
+  } else {
+    // failed attempt
     lastIdTag = "#" + lastId;
     thisCard.children().delay(500).fadeOut();
     $(lastIdTag).children().delay(640).fadeOut();
