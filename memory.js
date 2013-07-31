@@ -69,20 +69,24 @@ function cardClick(lettersArray) {
       lastId = currentId;
       lastCard = $(this).children().text();
     } else { // second attempt
-      // same letters revealed
-      if ($(this).children().text() === lastCard && currentId !== lastId) {
-        hovering($(this));
-        matchedletters.push(currentId, lastId);
-        checkWin(lettersArray);
-      } else { // failed attempt to match
-        lastIdTag = "#" + lastId;
-        $(this).children().delay(500).fadeOut();
-        $(lastIdTag).children().delay(640).fadeOut();
-        lastId = '';
-        lastCard = '';
-      }
+      secondAttemptCheckMatch($(this), lettersArray);
     }
   });
+}
+
+function secondAttemptCheckMatch(thisCard, lettersArray) {
+  var currentId = thisCard.attr('id');
+  if (thisCard.children().text() === lastCard && currentId !== lastId) {
+    hovering(thisCard);
+    matchedletters.push(currentId, lastId);
+    checkWin(lettersArray);
+  } else { // failed attempt to match
+    lastIdTag = "#" + lastId;
+    thisCard.children().delay(500).fadeOut();
+    $(lastIdTag).children().delay(640).fadeOut();
+    lastId = '';
+    lastCard = '';
+  }
 }
 
 //Add hoverclass to cards.
