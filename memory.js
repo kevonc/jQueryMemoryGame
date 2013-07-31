@@ -30,6 +30,7 @@ $(function() {
     updateTime();
     cardClick(shuffledArray);
     $("#controls").children().unbind("click");
+    $("#controls").children().css('cursor', 'default');
   });
   $("#medium").click(function() {
     var shuffledArray = _.shuffle(lettersMedium);
@@ -38,6 +39,7 @@ $(function() {
     updateTime();
     cardClick(shuffledArray);
     $("#controls").children().unbind("click");
+    $("#controls").children().css('cursor', 'default');
   });
   $("#large").click(function() {
     var shuffledArray = _.shuffle(lettersLarge);
@@ -46,6 +48,7 @@ $(function() {
     updateTime();
     cardClick(shuffledArray);
     $("#controls").children().unbind("click");
+    $("#controls").children().css('cursor', 'default');
   });
 });
 
