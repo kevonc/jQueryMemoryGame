@@ -86,8 +86,6 @@ function secondAttemptCheckMatch(thisCard, lettersArray) {
     lastIdTag = "#" + lastId;
     thisCard.children().delay(500).fadeOut();
     $(lastIdTag).children().delay(640).fadeOut();
-    lastId = '';
-    lastCard = '';
   }
 }
 
@@ -121,7 +119,7 @@ function checkWin(lettersArray) {
     $("#game").children().addClass("won");
     $("#footer").append("<button class='btn' id='restart'>Restart Game</button>");
     $("#restart").click(function() {
-      restartGame();
+        restartGame();
     });
   }
 }
