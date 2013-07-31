@@ -126,5 +126,6 @@ function restartGame() {
   $("#game").empty();
   $("#restart").remove();
   time = 0;
+  letters = [];
   startTime();
 }
